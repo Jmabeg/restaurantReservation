@@ -12,7 +12,7 @@ public abstract class AbstractService<Long, E, R extends JpaRepository<E, Long>,
 
 
     @Autowired
-    protected AbstractService(R repository, M mapper) {
+    public AbstractService(R repository, M mapper) {
         this.repository = repository;
         this.mapper = mapper;
     }
@@ -23,8 +23,15 @@ public abstract class AbstractService<Long, E, R extends JpaRepository<E, Long>,
 
     public D save(D dto){return mapper.toDto(repository.save(mapper.toEntity(dto)));}
 
+    public D update(Long id, D d){
+        repository.findById(id).orElseThrow(NotFoundException::new);
+        return mapper.toDto(repository.save(mapper.toEntity(d)));
+    }
+
     public void delete(Long id){repository.deleteById(id);}
 
     protected R getRepository(){return repository;}
+
+    protected M getMapper(){return mapper;}
 
 }

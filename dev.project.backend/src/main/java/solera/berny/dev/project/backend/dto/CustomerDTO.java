@@ -1,8 +1,6 @@
 package solera.berny.dev.project.backend.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
-import javax.persistence.ManyToMany;
 import lombok.Getter;
 import lombok.Setter;
 import solera.berny.dev.project.backend.model.Restaurant;
