@@ -47,7 +47,10 @@ public class RestaurantController {
     public Restaurant save(Restaurant restaurant){return this.restaurantService.save(restaurant);}
 
     @PutMapping("/{id}")
-    public Restaurant update(@PathVariable("id") Long id, @RequestBody Restaurant restaurant){
+    public Restaurant update(
+            @PathVariable("id") Long id,
+            @RequestBody Restaurant restaurant
+    ) {
         return this.restaurantService.update(id, restaurant);
     }
 
