@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/restaurantReservation?useSSL=false
+    url: jdbc:mysql://localhost:3306/restaurantreservation?useSSL=false
     username: root
     password: 1234
   security:
