@@ -1,6 +1,8 @@
 package solera.berny.dev.project.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -23,6 +25,7 @@ public class Chef {
     private String surname;
     private String password;
     private String email;
+    private LocalDateTime shiftStarts;
 
 
     @JsonIgnore
