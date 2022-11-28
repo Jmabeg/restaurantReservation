@@ -3,6 +3,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import solera.berny.dev.project.backend.dto.CustomerDTO;
 import solera.berny.dev.project.backend.model.Customer;
 import solera.berny.dev.project.backend.service.CustomerService;
 
@@ -20,16 +21,16 @@ public class CustomerController {
 
 
     @GetMapping
-    public List<Customer> findAll(){return this.customerService.findAll();}
+    public List<CustomerDTO> findAll(){return this.customerService.findAll();}
 
     @GetMapping("/{id}")
-    public Customer findById(@PathVariable("id") Long id){return this.customerService.findById(id);}
+    public CustomerDTO findById(@PathVariable("id") Long id){return this.customerService.findById(id);}
 
     @PostMapping
-    public Customer save(Customer customer){return this.customerService.save(customer);}
+    public CustomerDTO save(CustomerDTO customerDto){return this.customerService.save(customerDto);}
 
     @PutMapping("/{id}")
-    public Customer update(@PathVariable("id") Long id, @RequestBody Customer customer){return this.customerService.update(id, customer);}
+    public CustomerDTO update(@PathVariable("id") Long id, @RequestBody CustomerDTO customerDto){return this.customerService.update(id, customerDto);}
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long id){this.customerService.delete(id);}
