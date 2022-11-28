@@ -2,12 +2,13 @@ package solera.berny.dev.project.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import solera.berny.dev.project.backend.dto.ChefDTO;
 import solera.berny.dev.project.backend.dto.CustomerDTO;
 import solera.berny.dev.project.backend.dto.RestaurantDTO;
+import solera.berny.dev.project.backend.mapper.ChefMapper;
 import solera.berny.dev.project.backend.mapper.CustomerMapper;
 import solera.berny.dev.project.backend.mapper.RestaurantMapper;
 import solera.berny.dev.project.backend.model.Chef;
-import solera.berny.dev.project.backend.model.Customer;
 import solera.berny.dev.project.backend.model.Restaurant;
 import solera.berny.dev.project.backend.repository.CustomerRepository;
 import solera.berny.dev.project.backend.repository.RestaurantRepository;
@@ -17,13 +18,16 @@ public class RestaurantService extends AbstractService<Long, Restaurant, Restaur
 
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final ChefMapper chefMapper;
 
     @Autowired
     public RestaurantService(RestaurantRepository restaurantRepository, CustomerRepository customerRepository,
-            RestaurantMapper mapper, CustomerMapper customerMapper) {
+            RestaurantMapper mapper, CustomerMapper customerMapper,
+            ChefMapper chefMapper) {
         super(restaurantRepository, mapper);
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.chefMapper = chefMapper;
     }
 
 
@@ -33,19 +37,22 @@ public class RestaurantService extends AbstractService<Long, Restaurant, Restaur
 
     }
 
-    public Restaurant cancelRestaurantReservation(Restaurant restaurant, Customer customer) {
-        restaurant.getCustomersWithReservation().remove(customer);
-        return this.restaurantRepository.save(restaurant);
+    public RestaurantDTO cancelRestaurantReservation(RestaurantDTO restaurantDto, CustomerDTO customerDto) {
+        this.getMapper().toEntity(restaurantDto).getCustomersWithReservation().remove(this.customerMapper.toEntity(customerDto));
+        return this.getMapper().toDto(this.getRepository().save(this.getMapper().toEntity(restaurantDto)));
 
     }
 
-    public Restaurant assignChefToRestaurant(Restaurant restaurant, Chef chef) {
-        restaurant.setChef(chef);
-        return this.restaurantRepository.save(restaurant);
+    public Restaurant assignChefToRestaurant(RestaurantDTO restaurantDto, ChefDTO chefDto) {
+
+        this.getMapper().toEntity(restaurantDto).setChef(this.chefMapper.toEntity(chefDto));
+
+        return this.getRepository().save(this.getMapper().toEntity(restaurantDto));
     }
 
-    public Restaurant unassignChefToRestaurant(Restaurant restaurant, Chef chef) {
-        restaurant.setChef(null);
-        return this.restaurantRepository.save(restaurant);
+    public Restaurant unassignChefToRestaurant(RestaurantDTO restaurantDto) {
+        this.getMapper().toEntity(restaurantDto).setChef(null);
+
+        return this.getRepository().save(this.getMapper().toEntity(restaurantDto));
     }
 }

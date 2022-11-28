@@ -1,5 +1,6 @@
 package solera.berny.dev.project.backend.dto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ public class ChefDTO {
     private String surname;
     private String password;
     private String email;
+    private LocalDateTime shiftStarts;
 
     private List<Restaurant> restaurants;
 }

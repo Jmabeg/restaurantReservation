@@ -62,10 +62,17 @@
 		</dependency>
 
 
+		<!-- Swagger OpenApi -->
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-ui</artifactId>
 			<version>${openapi.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>us.dustinj.timezonemap</groupId>
+			<artifactId>timezonemap</artifactId>
+			<version>4.5</version>
 		</dependency>
 	</dependencies>
 
