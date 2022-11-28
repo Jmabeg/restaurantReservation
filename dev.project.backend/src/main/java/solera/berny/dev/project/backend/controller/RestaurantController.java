@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import solera.berny.dev.project.backend.dto.CustomerDTO;
+import solera.berny.dev.project.backend.dto.RestaurantDTO;
 import solera.berny.dev.project.backend.model.Chef;
 import solera.berny.dev.project.backend.model.Customer;
 import solera.berny.dev.project.backend.model.Restaurant;
@@ -38,13 +41,13 @@ public class RestaurantController {
 
 
     @GetMapping
-    public List<Restaurant> findAll(){return this.restaurantService.findAll();}
+    public List<RestaurantDTO> findAll(){return this.restaurantService.findAll();}
 
     @GetMapping("/{id}")
-    public Restaurant findById(@PathVariable("id") Long id){return this.restaurantService.findById(id);}
+    public RestaurantDTO findById(@PathVariable("id") Long id){return this.restaurantService.findById(id);}
 
     @PostMapping
-    public Restaurant save(Restaurant restaurant){return this.restaurantService.save(restaurant);}
+    public RestaurantDTO save(Restaurant restaurant){return this.restaurantService.save(restaurant);}
 
     @PutMapping("/{id}")
     public Restaurant update(
@@ -59,8 +62,8 @@ public class RestaurantController {
             @PathVariable("restaurantId") Long restaurantId,
             @PathVariable("customerId") Long customerId
     ) {
-        Restaurant restaurant = this.restaurantService.findById(restaurantId);
-        Customer customer = this.customerService.findById(customerId);
+        RestaurantDTO restaurant = this.restaurantService.findById(restaurantId);
+        CustomerDTO customer = this.customerService.findById(customerId);
         return this.restaurantService.makeRestaurantReservation(restaurant, customer);
     }
 
